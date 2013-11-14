@@ -1,24 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tabhost"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp" >
+    android:layout_height="fill_parent" >
 
-    <ListView
-        android:id="@+id/list"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="0px"
-        android:layout_weight="1"
-        android:background="#00FF00"
-        android:drawSelectorOnTop="false" />
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@id/android:empty"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#FF0000"
-        android:text="Recommend" />
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
 
-</LinearLayout>
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <ListView
+                android:id="@+id/list1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:fadeScrollbars="true"
+                android:fadingEdge="none"
+                android:scrollingCache="false"
+                 />
+            
+            <ListView
+                android:id="@+id/list2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:fadeScrollbars="true"
+                android:fadingEdge="none"
+                android:scrollingCache="false"
+                 />
+            
+            <ListView
+                android:id="@+id/list3"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:fadeScrollbars="true"
+                android:fadingEdge="none"
+                android:scrollingCache="false"
+                 />
+
+        </FrameLayout>
+    </LinearLayout>
+
+</TabHost>

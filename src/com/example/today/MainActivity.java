@@ -18,8 +18,6 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.index);
 		Button button1 = (Button) findViewById(R.id.button1);
 		button1.setOnClickListener(new myButtonListener());
-		FetchInfo fetch = new FetchInfo();
-		button1.setText(fetch.webRecommend("web").indexOf(1));
 	}
 
 	class myButtonListener implements OnClickListener {

@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="#000000"
+     >
 
     <TextView
         android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
-        android:textSize="14px"/>
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:textSize="30px"/>
 
     <TextView
         android:id="@+id/info"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
         android:layout_below="@+id/title"
-        android:textSize="10px"/>
+        android:textColor="#ffffff"
+        android:textSize="20px"/>
 
 </RelativeLayout>
