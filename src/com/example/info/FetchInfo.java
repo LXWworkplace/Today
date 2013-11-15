@@ -8,6 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+
 public class FetchInfo {
 	private Document doc;
 
@@ -15,13 +16,13 @@ public class FetchInfo {
 		doc = null;
 	}
 
-
 	private Document getDoc(String url) {
+
 		Document tmp = null;
 		try {
 			tmp = Jsoup.connect(url).timeout(60000).get();
 		} catch (Exception e) {
-			// System.out.println("url cann't open");
+			System.out.println("url cann't open");
 			// return null;
 		}
 		return tmp;
@@ -46,6 +47,13 @@ public class FetchInfo {
 							info.add(link.text());
 						}
 					}
+				}
+			}
+			if (name == "web") {
+				for (int i = info.size() - 3; i > 0; i -= 3) {
+					info.remove(i);
+					i--;
+					info.remove(i);
 				}
 			}
 			return info;

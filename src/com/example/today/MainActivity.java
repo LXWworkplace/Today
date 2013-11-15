@@ -1,7 +1,5 @@
 package com.example.today;
 
-import com.example.info.FetchInfo;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
