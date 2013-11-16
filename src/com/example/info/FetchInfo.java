@@ -1,7 +1,10 @@
 package com.example.info;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,33 +31,34 @@ public class FetchInfo {
 		return tmp;
 	}
 
-	public List<String> webRecommend(String name) {
+	public ArrayList<Map<String, Object>> webRecommend(String name) {
 		if ((doc = getDoc("http://today.hit.edu.cn")) != null) {
 			String divName = null;
 			if (name == "web")
 				divName = "div.sidelist";
-			else
+			else if(name == "reader")
 				divName = "div.sidelist4";
+			else if(name == "newest")
+				divName = "div.sidelist5";
 
 			Elements divs = doc.select(divName);
-			List<String> info = new LinkedList<String>();
+			ArrayList<Map<String, Object>> info = new  ArrayList<Map<String, Object>>();
 			if (divs != null) {
 				for (Element div : divs) {
 					Elements links = div.select("a[href]");
 					if (links != null) {
 						for (Element link : links) {
-							info.add(link.attr("abs:href"));
-							info.add(link.text());
+							Map<String, Object> map = new HashMap<String, Object>();
+							map.put("info", link.attr("abs:href"));
+							map.put("title", link.text());
+							info.add(map);
 						}
 					}
 				}
 			}
 			if (name == "web") {
-				for (int i = info.size() - 3; i > 0; i -= 3) {
+				for (int i = info.size() - 2; i > 0; i -= 2)
 					info.remove(i);
-					i--;
-					info.remove(i);
-				}
 			}
 			return info;
 		}

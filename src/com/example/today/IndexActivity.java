@@ -22,9 +22,8 @@ import android.widget.TabHost;
 public class IndexActivity extends Activity {
 
 	private TabHost tabHost;
-	private ListView listView;
-	private List<Map<String, Object>> list;
-	private List<String> info;
+	private ListView listView1, listView2, listView3;
+	private List<Map<String, Object>> list1, list2, list3;
 	private FetchInfo fetchInfo;
 
 	@Override
@@ -64,24 +63,68 @@ public class IndexActivity extends Activity {
 		// 设置当前显示哪一个标签
 		tabHost.setCurrentTab(0);
 
-		listView = (ListView) findViewById(R.id.list1);
+		listView1 = (ListView) findViewById(R.id.list1);
+		listView2 = (ListView) findViewById(R.id.list2);
+		listView3 = (ListView) findViewById(R.id.list3);
 
 		// *******************添加listView的监听器和适配器*************************
-		getData();
+		getData(1);
+		getData(2);
+		getData(3);
 
-		SimpleAdapter adapter = new SimpleAdapter(this, list,
+		SimpleAdapter adapter1 = new SimpleAdapter(this, list1,
 				R.layout.mylistview, new String[] { "title", "info" },
 				new int[] { R.id.title, R.id.info });
-		listView.setAdapter(adapter);
+		listView1.setAdapter(adapter1);
 
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		SimpleAdapter adapter2 = new SimpleAdapter(this, list2,
+				R.layout.mylistview, new String[] { "title", "info" },
+				new int[] { R.id.title, R.id.info });
+		listView2.setAdapter(adapter2);
+
+		SimpleAdapter adapter3 = new SimpleAdapter(this, list3,
+				R.layout.mylistview, new String[] { "title", "info" },
+				new int[] { R.id.title, R.id.info });
+		listView3.setAdapter(adapter3);
+
+		listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long arg3) {
 
 				Intent intent = new Intent();
-				Map<String, Object> val = list.get(position);
+				Map<String, Object> val = list1.get(position);
+				intent.putExtra("title", val.get("title").toString());
+				intent.putExtra("info", val.get("info").toString());
+				intent.setClass(IndexActivity.this, NewsGUI.class);
+				IndexActivity.this.startActivity(intent);
+			}
+		});
+
+		listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View view,
+					int position, long arg3) {
+
+				Intent intent = new Intent();
+				Map<String, Object> val = list2.get(position);
+				intent.putExtra("title", val.get("title").toString());
+				intent.putExtra("info", val.get("info").toString());
+				intent.setClass(IndexActivity.this, NewsGUI.class);
+				IndexActivity.this.startActivity(intent);
+			}
+		});
+
+		listView3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View view,
+					int position, long arg3) {
+
+				Intent intent = new Intent();
+				Map<String, Object> val = list3.get(position);
 				intent.putExtra("title", val.get("title").toString());
 				intent.putExtra("info", val.get("info").toString());
 				intent.setClass(IndexActivity.this, NewsGUI.class);
@@ -91,18 +134,17 @@ public class IndexActivity extends Activity {
 	}
 
 	// ********************为listview添加数据********************************
-	private void getData() {
-		list = new ArrayList<Map<String, Object>>();
-		info = new ArrayList<String>();
-		info = fetchInfo.webRecommend("web");
-		info.addAll(fetchInfo.webRecommend("reader"));
-
-		for (int i = 0; i < info.size() - 1; i++) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("info", info.get(i));
-			i += 1;
-			map.put("title", info.get(i));
-			list.add(map);
+	private void getData(int num) {
+		if (num == 1) {
+			list1 = new ArrayList<Map<String, Object>>();
+			list1 = fetchInfo.webRecommend("web");
+			list1.addAll(fetchInfo.webRecommend("reader"));
+		} else if (num == 2) {
+			list2 = new ArrayList<Map<String, Object>>();
+			list2 = fetchInfo.webRecommend("newest").subList(0, 8);
+		} else {
+			list3 = new ArrayList<Map<String, Object>>();
+			list3 = fetchInfo.webRecommend("newest").subList(9, 17);
 		}
 	}
 
